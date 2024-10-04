@@ -9,6 +9,23 @@ const PORT = process.env.PORT || 5500;
 const mongoose = require('mongoose');
 
 
+
+
+
+
+
+// Allow only your frontend to access the backend
+const corsOptions = {
+  origin: 'https://hayle-hb.github.io', 
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Enable if the frontend needs to send cookies or other credentials
+};
+
+app.use(cors(corsOptions));
+
+
+
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
