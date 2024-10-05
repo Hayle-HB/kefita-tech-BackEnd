@@ -21,26 +21,26 @@ const getBlog = async (req, res) => {
   }
 };
 
-const addBlog = async (req, res) => {
-  try {
-    const { title, description, content, category } = req.body;
+// const addBlog = async (req, res) => {
+//   try {
+//     const { title, description, content, category } = req.body;
 
-    const newBlog = await Blog({
-      title,
-      description,
-      content,
-      category,
-    });
+//     const newBlog = await Blog({
+//       title,
+//       description,
+//       content,
+//       category,
+//     });
 
-    await newBlog.save();
-    res.status(202).json(newBlog);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
+//     await newBlog.save();
+//     res.status(202).json(newBlog);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// };
 
 module.exports = {
   getBlogs,
   getBlog,
-  addBlog,
+  // addBlog,
 };

@@ -6,10 +6,10 @@ const Blog = require("../models/Blog.js");
 const {
   getBlogs,
   getBlog,
-  addBlog, 
+  // addBlog,  
 } = require("../controllers/blogController.js");
 
-router.post("/blogs", addBlog);
+// router.post("/blogs", addBlog);
 // Fetch all blogs
 router.get("/blogs", getBlogs);
 
