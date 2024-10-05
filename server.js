@@ -34,6 +34,14 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // routes
+
 app.use("/api", contactRoute);
 app.use("/api", subscriberRoute);
 app.use("/api", blogRoute);
+
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message:
+      "You can't deal with this server directly please use from the front end",
+  });
+});
