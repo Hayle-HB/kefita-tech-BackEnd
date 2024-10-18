@@ -33,7 +33,6 @@
             </tr>
           </thead>
           <tbody>
-            
             <% subscribers.forEach(subscriber => { %>
             <tr>
               <td><%= subscriber.email %></td>
@@ -77,13 +76,16 @@
           const confirmDelete = confirm(
             "Are you sure you want to delete this subscriber?"
           );
-          
+
           if (confirmDelete) {
             try {
               // Send DELETE request to backend
-              const response = await fetch(`/api/subscriber/${subscriberId}`, {
-                method: "DELETE",
-              });
+              const response = await fetch(
+                `https://kefita-tech-backend-1.onrender.com/api/subscriber/${subscriberId}`,
+                {
+                  method: "DELETE",
+                }
+              );
 
               if (response.ok) {
                 // Remove the subscriber row from the table

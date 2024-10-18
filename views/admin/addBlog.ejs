@@ -75,10 +75,13 @@
         loaderOverlay.style.display = "flex"; // Show the loader
 
         try {
-          const response = await fetch("http://localhost:1000/api/blogs", {
-            method: "POST",
-            body: formData,
-          });
+          const response = await fetch(
+            "https://kefita-tech-backend-1.onrender.com/api/blogs",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
 
           loaderOverlay.style.display = "none"; // Hide the loader
 
