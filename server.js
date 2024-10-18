@@ -5,6 +5,7 @@ const cors = require("cors");
 const contactRoute = require("./routes/contactRoute.js");
 const subscriberRoute = require("./routes/subscribersRoute.js");
 const blogRoute = require("./routes/BlogRoute.js");
+const upload = require('./config/upload.js');
 const app = express();
 const PORT = process.env.PORT || 5500;
 const mongoose = require("mongoose");
