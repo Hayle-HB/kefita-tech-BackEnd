@@ -1,3 +1,4 @@
+const Subscribers = require("../models/Subscribers.js");
 const Subscriber = require("../models/Subscribers.js");
 
 const addUserSubscribers = async (req, res) => {
@@ -25,12 +26,9 @@ const addUserSubscribers = async (req, res) => {
   }
 };
 
-
-
 const deleteUserSubscriber = async (req, res) => {
   try {
     const { email } = req.body;
-
 
     const result = await Subscriber.findOneAndDelete({ email });
 
@@ -44,6 +42,54 @@ const deleteUserSubscriber = async (req, res) => {
   }
 };
 
+const fetchAllSubscriber = async (req, res) => {
+  try {
+    const subscribers = await Subscribers.find();
+    res.status(200).send(subscribers);
+  } catch (err) {
+    console.log(err);
 
+    res.status(400).json({
+      message: "Unable to find the Subscribers, refresh or return later",
+    });
+  }
+};
 
-module.exports = { addUserSubscribers, deleteUserSubscriber };
+const fetchSubscriberByID = async (req, res) => {
+  try {
+    const _id = req.params.id;
+
+    const subscriber = await Subscriber.findById(_id);
+
+    res.status(200).send(subscriber);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({
+      message: "Unable to get this Subscribers ",
+    });
+  }
+};
+
+const deleteSubscriberByID = async (req, res) => {
+  try {
+    const _id = req.params.id;
+
+    await Subscriber.findOneAndDelete({ _id });
+
+    res.status(200).send({
+      message: "Subscriber is deleted",
+    });
+  } catch (error) {
+    res.status(400).send({
+      message: "Unable to Delete the user",
+    });
+  }
+};
+
+module.exports = {
+  addUserSubscribers,
+  deleteUserSubscriber,
+  fetchAllSubscriber,
+  fetchSubscriberByID,
+  deleteSubscriberByID,
+};

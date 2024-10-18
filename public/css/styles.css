@@ -1,0 +1,423 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Admin Header Styling */
+.admin-header {
+  z-index: 1000;
+  padding: 20px 30px;
+  background-color: #f4f4f4; /* Light gray background */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.admin-header .logo img {
+  width: 10rem;
+  height: auto;
+}
+
+.admin-header h1 {
+  font-size: 2rem;
+  color: rgb(255, 0, 157);
+  text-align: center;
+  flex-grow: 1;
+  margin-left: 1rem;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px; /* Width of the sidebar */
+  background-color: #f4f4f4; /* Light gray background */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200px;
+  height: 100%;
+  position: fixed; /* Fix the sidebar */
+  top: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: left 0.5s ease; /* Smooth transition */
+}
+
+/* Keyframes for opening and closing sidebar */
+@keyframes openSidebar {
+  from {
+    left: -250px;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes closeSidebar {
+  from {
+    left: 0;
+  }
+  to {
+    left: -250px;
+  }
+}
+
+/* Open and Close Classes */
+.sidebar.open {
+  animation: openSidebar 0.5s forwards; /* Apply opening animation */
+}
+
+.sidebar.close {
+  animation: closeSidebar 0.5s forwards; /* Apply closing animation */
+}
+
+.sidebar-menu {
+  list-style-type: none;
+  padding: 0; /* Remove default padding */
+  flex-grow: 1; /* Allow the menu to take available space */
+}
+
+.sidebar-menu li {
+  margin: 15px 0; /* Spacing between links */
+}
+
+.sidebar-menu li a {
+  text-decoration: none; /* Remove underline */
+  color: #333; /* Darker text for readability */
+  padding: 10px;
+  border-radius: 4px; /* Rounded corners */
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.sidebar-menu li a:hover {
+  background-color: #ff6347; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+/* Active link styling */
+.sidebar-menu li a.active {
+  background-color: #ff6347; /* Different background for active link */
+  color: #fff; /* Text color for active link */
+}
+
+/* User Profile Section */
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.user-profile img {
+  width: 50px; /* Profile picture size */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Circular profile picture */
+  margin-right: 10px; /* Space between image and text */
+}
+
+.user-profile p {
+  font-weight: bold; /* Bold username */
+  color: #333; /* Darker text for readability */
+}
+
+.sidebar-header {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Main Content Styling */
+main {
+  margin-left: 500px; /* Space for sidebar */
+  padding: 20px;
+  transition: margin-left 0.5s ease; /* Smooth transition for main content */
+}
+
+main h1 {
+  text-align: center;
+  color: aqua;
+}
+
+/* Form Styles */
+form {
+  margin-top: 20px;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold; /* Bold labels */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px; /* Font size for input fields */
+}
+
+button {
+  background-color: rgb(255, 0, 157); /* Button color */
+  color: #fff; /* Button text color */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+button:hover {
+  background-color: #ff6347; /* Change background color on hover */
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4; /* Light gray background for headers */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    left: -200px; /* Adjust for smaller screens */
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  main {
+    margin-left: 0; /* Remove sidebar margin on small screens */
+  }
+}
+
+.blog-list,
+.subscribers {
+  margin-left: 300px;
+}
+
+.blog-list svg:hover {
+  fill: aqua;
+}
+
+.delete {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.latest-post {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 10px;
+  margin-top: -100px;
+}
+
+@media (max-width: 1024px) {
+  .latest-post {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+
+.blog-list .container {
+  margin: 170px 20px;
+  width: 100%;
+  max-width: 1350px;
+  padding: 20px;
+}
+
+.box {
+  width: 330px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 17px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.box img {
+  width: 100%;
+  height: 200px; /* Fixed height for consistent display */
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.box-content {
+  color: #3166aa;
+  line-height: 1.7;
+  padding: 10px;
+}
+
+.box:hover {
+  transition: 0.6s ease;
+  transform: translate(20px, 0px);
+}
+
+.blog-list button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.readmore {
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px 13px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background-color: #3166aa;
+  color: white;
+  border: none;
+}
+
+.filerButton {
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+button.active {
+  background-color: #0056b3;
+  color: white;
+}
+
+.blog-list button {
+  padding: 10px 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  background-color: white;
+}
+
+/* Icon styles */
+.icon {
+  margin: 0 5px; /* Space between icons */
+  cursor: pointer; /* Pointer cursor for icons */
+}
+
+.loading {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100vh;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.blog-list h1 {
+  align-items: center;
+  text-align: center;
+  color: aqua;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  width: 400px;
+  height: 100px;
+}
+/* Loader CSS */
+.loader {
+  font-size: 48px;
+  color: black;
+  width: 1em;
+  height: 1em;
+  box-sizing: border-box;
+  background-color: currentcolor;
+  position: relative;
+  border-radius: 50%;
+  transform: rotateX(-60deg) perspective(1000px);
+}
+.loader:before,
+.loader:after {
+  content: "";
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  animation: flowerFlow 1s ease-out infinite;
+}
+.loader:after {
+  animation-delay: 0.4s;
+}
+
+@keyframes flowerFlow {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg);
+    box-shadow: 0 0 0 -0.5em currentcolor, 0 0 0 -0.5em currentcolor,
+      0 0 0 -0.5em currentcolor, 0 0 0 -0.5em currentcolor,
+      0 0 0 -0.5em currentcolor, 0 0 0 -0.5em currentcolor,
+      0 0 0 -0.5em currentcolor, 0 0 0 -0.5em currentcolor;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(180deg);
+    box-shadow: -1em -1em 0 -0.35em currentcolor,
+      0 -1.5em 0 -0.35em currentcolor, 1em -1em 0 -0.35em currentcolor,
+      -1.5em 0 0 -0.35em currentcolor, 1.5em -0 0 -0.35em currentcolor,
+      -1em 1em 0 -0.35em currentcolor, 0 1.5em 0 -0.35em currentcolor,
+      1em 1em 0 -0.35em currentcolor;
+  }
+}

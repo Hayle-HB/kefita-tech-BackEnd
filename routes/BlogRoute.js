@@ -15,13 +15,8 @@ const {
   // shareBlog,
 } = require("../controllers/blogController.js");
 
-// Create a new blog post
 router.post("/blogs", upload.single('image'), addBlog);
-
-// Fetch all blogs
 router.get("/blogs", getBlogs);
-
-// Fetch a single blog by ID
 router.get("/blogs/:id", getBlogByID);
 
 // // Update a blog post by ID

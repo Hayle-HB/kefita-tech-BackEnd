@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog List</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <aside class="sidebar" id="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="/admin/add-blog">Add Blog</a></li>
+        <li><a href="/admin/blog-list" class="active">Blog List</a></li>
+        <li><a href="/admin/news-letter">Newsletter</a></li>
+        <li><a href="/admin/subscribers">Subscribers</a></li>
+      </ul>
+      <div class="user-profile">
+        <img src="/images/user-profile.png" alt="User Profile" />
+        <p>Username</p>
+      </div>
+    </aside>
+
+    <main class="blog-list">
+      <h1>Blog List</h1>
+      <div class="container">
+        <div class="latest-post">
+          <% blogs.forEach(blog => { %>
+          <div class="box">
+            <img src="<%= blog.image %>" alt="<%= blog.title %> Image" />
+            <div class="box-content">
+              <h3><%= blog.title %></h3>
+              <p><%= blog.content.slice(0, 50) %>...</p>
+              <div>
+                <a href="/admin/edit-blog/<%= blog.id %>" class="icon"
+                  >🖉 Edit</a
+                >
+                <a href="/admin/delete-blog/<%= blog.id %>" class="icon"
+                  >🗑 Delete</a
+                >
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+      // Sidebar toggle script
+      document.addEventListener("DOMContentLoaded", () => {
+        const sidebar = document.getElementById("sidebar");
+        const closeBtn = document.getElementById("close-btn");
+        const openBtn = document.getElementById("open-btn");
+
+        closeBtn.addEventListener("click", () => {
+          sidebar.classList.remove("open");
+          sidebar.classList.add("close");
+        });
+
+        openBtn.addEventListener("click", () => {
+          sidebar.classList.remove("close");
+          sidebar.classList.add("open");
+        });
+      });
+    </script>
+  </body>
+</html>
