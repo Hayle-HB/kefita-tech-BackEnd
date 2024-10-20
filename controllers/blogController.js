@@ -75,20 +75,35 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-const editBlog = async (req, res) => {
+const updateBlog = async (req, res) => {
   try {
-    const _id = req.params.id;
-    
+    const { title, description, content, category } = req.body;
 
-    const response = Blog.findByIdAndUpdate();
+    const blog = await Blog.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
 
+    blog.title = title || blog.title;
+    blog.description = description || blog.description;
+    blog.content = content || blog.content;
+    blog.category = category || blog.category;
 
+    if (req.file) {
+      const { url, error } = await uploadImage(req.file);
+      if (error) {
+        return res.status(400).json({ error: error.message });
+      }
+      blog.image = url;
+    }
 
-
-
-
+    await blog.save();
+    res.status(200).json(blog);
   } catch (err) {
-    res.send(500).json({ error: err });
+    console.error(err);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the blog post" });
   }
 };
 
@@ -97,4 +112,5 @@ module.exports = {
   getBlogByID,
   addBlog,
   deleteBlog,
+  updateBlog,
 };

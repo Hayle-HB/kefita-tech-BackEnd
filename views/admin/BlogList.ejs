@@ -35,7 +35,9 @@
       // Fetch blog data from the API and display it
       document.addEventListener("DOMContentLoaded", async () => {
         try {
-          const response = await fetch("http://localhost:1000/api/blogs");
+          const response = await fetch(
+            "https://kefita-tech-backend-1.onrender.com/admin/blog-list"
+          );
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
@@ -93,7 +95,7 @@
         if (confirmation) {
           try {
             const response = await fetch(
-              `http://localhost:1000/api/blogs/${blogId}`,
+              `https://kefita-tech-backend-1.onrender.com/api/blogs/${blogId}`,
               {
                 method: "DELETE",
               }
@@ -122,7 +124,9 @@
           blogContainer.innerHTML = "";
 
           // Fetch the current blog data
-          fetch(`http://localhost:1000/api/blogs/${blogID}`)
+          fetch(
+            `https://kefita-tech-backend-1.onrender.com/api/blogs/${blogID}`
+          )
             .then((response) => response.json())
             .then((blog) => {
               // Create the edit form
@@ -180,7 +184,7 @@
 
                 try {
                   const response = await fetch(
-                    `http://localhost:1000/api/blogs/${blogID}`,
+                    `https://kefita-tech-backend-1.onrender.com/api/blogs/${blogID}`,
                     {
                       method: "PUT",
                       body: formData,
