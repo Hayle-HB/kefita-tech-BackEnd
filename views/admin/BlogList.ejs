@@ -24,48 +24,105 @@
 
     <main class="blog-list">
       <h1>Blog List</h1>
-      <div class="container">
-        <div class="latest-post">
-          <% blogs.forEach(blog => { %>
-          <div class="box">
-            <img src="<%= blog.image %>" alt="<%= blog.title %> Image" />
-            <div class="box-content">
-              <h3><%= blog.title %></h3>
-              <p><%= blog.content.slice(0, 50) %>...</p>
-              <div>
-                <a href="/admin/edit-blog/<%= blog.id %>" class="icon"
-                  >🖉 Edit</a
-                >
-                <a href="/admin/delete-blog/<%= blog.id %>" class="icon"
-                  >🗑 Delete</a
-                >
-              </div>
-            </div>
-          </div>
-          <% }) %>
-        </div>
+      <div class="container" id="blog-container">
+        <!-- Blog posts will be dynamically injected here -->
       </div>
     </main>
 
     <%- include('../partials/footer.ejs') %>
 
     <script>
-      // Sidebar toggle script
-      document.addEventListener("DOMContentLoaded", () => {
+      // Fetch blog data from the API and display it
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          const response = await fetch("http://localhost:1000/api/blogs");
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const blogs = await response.json();
+          const blogContainer = document.getElementById("blog-container");
+          console.log(blogs);
+          blogs.forEach((blog) => {
+            const blogBox = document.createElement("div");
+            blogBox.className = "latest-post";
+            blogBox.innerHTML = `
+              <div class="box">
+                <img src="${blog.image}" alt="${blog.title} Image" />
+                <div class="box-content">
+                  <h3>${blog.title}</h3>
+                  <p>${blog.content.slice(0, 50)}...</p>
+                  <div class="item">
+                    <p onclick="editBlog('${
+                      blog._id
+                    }')" class="icon">🖉 Edit</p>
+                    <button class="icon" onclick="deleteBlog('${
+                      blog._id
+                    }')">🗑 Delete</button>
+                  </div>
+                </div>
+              </div>
+            `;
+            blogContainer.appendChild(blogBox);
+          });
+        } catch (error) {
+          console.error("Error fetching blog data:", error);
+        }
+
+        // Sidebar toggle script
         const sidebar = document.getElementById("sidebar");
         const closeBtn = document.getElementById("close-btn");
         const openBtn = document.getElementById("open-btn");
 
-        closeBtn.addEventListener("click", () => {
-          sidebar.classList.remove("open");
-          sidebar.classList.add("close");
-        });
+        if (closeBtn) {
+          closeBtn.addEventListener("click", () => {
+            sidebar.classList.remove("open");
+            sidebar.classList.add("close");
+          });
+        }
 
-        openBtn.addEventListener("click", () => {
-          sidebar.classList.remove("close");
-          sidebar.classList.add("open");
-        });
+        if (openBtn) {
+          openBtn.addEventListener("click", () => {
+            sidebar.classList.remove("close");
+            sidebar.classList.add("open");
+          });
+        }
       });
+
+      async function deleteBlog(blogId) {
+        const confirmation = confirm(
+          "Are you sure you want to delete this blog?"
+        );
+        if (confirmation) {
+          try {
+            const response = await fetch(
+              `http://localhost:1000/api/blogs/${blogId}`,
+              {
+                method: "DELETE",
+              }
+            );
+            if (!response.ok) {
+              throw new Error("Failed to delete the blog");
+            }
+            alert("Blog deleted successfully");
+            location.reload(); // Reload the page to reflect changes
+          } catch (error) {
+            console.error("Error deleting blog:", error);
+            alert("Error deleting blog");
+          }
+        }
+      }
+
+      async function editBlog(blogID) {
+
+
+        location.response("HI THERE");
+        
+
+
+
+      }
+
+
     </script>
   </body>
 </html>

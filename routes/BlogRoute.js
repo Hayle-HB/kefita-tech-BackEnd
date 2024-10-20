@@ -18,12 +18,12 @@ const {
 router.post("/blogs", upload.single('image'), addBlog);
 router.get("/blogs", getBlogs);
 router.get("/blogs/:id", getBlogByID);
-
+router.delete("/blogs/:id", deleteBlog)
 // // Update a blog post by ID
 // router.put("/blogs/:id", updateBlog);
 
 // // Delete a blog post by ID
-router.delete("/blogs/:id", deleteBlog); 
+// router.delete("/blogs/:id", deleteBlog); 
 
 // // Search for blogs
 // router.get("/blogs/search", searchBlogs);

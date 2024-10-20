@@ -7,7 +7,7 @@ const cors = require("cors");
 const contactRoute = require("./routes/contactRoute.js");
 const subscriberRoute = require("./routes/subscribersRoute.js");
 const blogRoute = require("./routes/BlogRoute.js");
-const adminRoute = require('./routes/adminRoutes.js');
+const adminRoute = require("./routes/adminRoutes.js");
 const upload = require("./config/upload.js");
 const mongoose = require("mongoose");
 const path = require("path");
@@ -23,8 +23,6 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
-
-
 
 app.use(cors(corsOptions));
 
@@ -56,7 +54,6 @@ app.use("/api", contactRoute);
 app.use("/api", subscriberRoute);
 app.use("/api", blogRoute);
 app.use("/admin", adminRoute);
-
 
 // Root route to render EJS template
 app.get("/", (req, res) => {

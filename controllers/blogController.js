@@ -78,6 +78,15 @@ const deleteBlog = async (req, res) => {
 const editBlog = async (req, res) => {
   try {
     const _id = req.params.id;
+    
+
+    const response = Blog.findByIdAndUpdate();
+
+
+
+
+
+
   } catch (err) {
     res.send(500).json({ error: err });
   }
