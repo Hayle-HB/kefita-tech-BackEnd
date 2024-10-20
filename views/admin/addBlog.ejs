@@ -6,7 +6,7 @@
     <title>Add Blog</title>
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
-  <body>
+  <body style="position: relative">
     <%- include('../partials/header.ejs') %>
 
     <aside class="sidebar" id="sidebar">
@@ -23,11 +23,7 @@
     </aside>
 
     <main>
-      <form
-        style="position: relative"
-        id="addBlogForm"
-        enctype="multipart/form-data"
-      >
+      <form id="addBlogForm" enctype="multipart/form-data">
         <div>
           <label for="title">Title:</label>
           <input type="text" id="title" name="title" required />
@@ -64,15 +60,19 @@
     <%- include('../partials/footer.ejs') %>
 
     <script>
+      const body = document.querySelector("body");
       const form = document.querySelector("#addBlogForm");
       const loaderOverlay = document.querySelector(".loading-overlay");
       loaderOverlay.style.display = "none";
+      loaderOverlay.style.opacity = "1";
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        loaderOverlay.style.display = "flex";
+        body.style.opacity = ".4";
 
         const formData = new FormData(form); // Use FormData to handle file uploads
 
-        loaderOverlay.style.display = "flex"; // Show the loader
+        // Show the loader
 
         try {
           const response = await fetch(
@@ -83,16 +83,16 @@
             }
           );
 
-          loaderOverlay.style.display = "none"; // Hide the loader
-
           if (response.status === 201) {
             alert("Blog added successfully!");
             form.reset(); // Clear the form
           }
         } catch (err) {
-          loaderOverlay.style.display = "none"; // Hide the loader on error
           console.log(err);
           alert("An error occurred while adding the blog.");
+        } finally {
+          loaderOverlay.style.display = "none";
+          body.style.opacity = "1";
         }
       });
     </script>

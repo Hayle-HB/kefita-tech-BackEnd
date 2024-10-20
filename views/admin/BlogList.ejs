@@ -52,9 +52,7 @@
                   <h3>${blog.title}</h3>
                   <p>${blog.content.slice(0, 50)}...</p>
                   <div class="item">
-                    <p onclick="editBlog('${
-                      blog._id
-                    }')" class="icon">🖉 Edit</p>
+                    <p onclick="editBlog('${blog._id}')" class="icon">🖉 Edit</p>
                     <button class="icon" onclick="deleteBlog('${
                       blog._id
                     }')">🗑 Delete</button>
@@ -112,17 +110,101 @@
         }
       }
 
-      async function editBlog(blogID) {
+      function editBlog(blogID) {
+        const confirmation = confirm(
+          "Are you sure you want to edit this blog?"
+        );
+        if (confirmation) {
+          // Find the container where the form will be displayed
+          const blogContainer = document.getElementById("blog-container");
 
+          // Clear the container before adding the edit form
+          blogContainer.innerHTML = "";
 
-        location.response("HI THERE");
-        
+          // Fetch the current blog data
+          fetch(`http://localhost:1000/api/blogs/${blogID}`)
+            .then((response) => response.json())
+            .then((blog) => {
+              // Create the edit form
+              const form = document.createElement("form");
+              form.id = "edit-form";
+              form.innerHTML = `
+            <h3>Edit Blog: ${blog.title}</h3>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="${blog.title}" />
 
+            <label for="description">Description</label>
+            <textarea id="description" name="description">${blog.description}</textarea>
 
+            <label for="content">Content</label>
+            <textarea id="content" name="content">${blog.content}</textarea>
 
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" value="${blog.category}" />
+
+            <label for="image">Image (optional)</label>
+            <input type="file" id="image" name="image" />
+
+            <button type="submit">Save Changes</button>
+          `;
+
+              // Append the form to the container
+              blogContainer.appendChild(form);
+
+              // Add form submission logic
+              form.addEventListener("submit", async (event) => {
+                event.preventDefault(); // Prevent form from submitting the traditional way
+
+                const formData = new FormData();
+                formData.append(
+                  "title",
+                  document.getElementById("title").value
+                );
+                formData.append(
+                  "description",
+                  document.getElementById("description").value
+                );
+                formData.append(
+                  "content",
+                  document.getElementById("content").value
+                );
+                formData.append(
+                  "category",
+                  document.getElementById("category").value
+                );
+
+                const imageFile = document.getElementById("image").files[0];
+                if (imageFile) {
+                  formData.append("image", imageFile); // If a new image is selected, append it to form data
+                }
+
+                try {
+                  const response = await fetch(
+                    `http://localhost:1000/api/blogs/${blogID}`,
+                    {
+                      method: "PUT",
+                      body: formData,
+                    }
+                  );
+
+                  if (response.ok) {
+                    alert("Blog updated successfully!");
+                    location.reload(); // Reload the page to reflect the updated blog post
+                  } else {
+                    alert("Failed to update the blog.");
+                  }
+                } catch (error) {
+                  console.error("Error updating blog:", error);
+                  alert("An error occurred while updating the blog.");
+                }
+              });
+            })
+            .catch((error) => {
+              console.error("Error fetching blog data for editing:", error);
+              alert("An error occurred while fetching the blog data.");
+            });
+        }
       }
-
-
     </script>
   </body>
 </html>
