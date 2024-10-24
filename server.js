@@ -17,14 +17,15 @@ const PORT = process.env.PORT || 1000;
 
 const Blog = require("./models/Blog.js");
 
-// Allow only your frontend to access the backend
-const corsOptions = {
-  origin: "https://kefita-technology-plc.github.io/",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-}; 
+// // Allow only your frontend to access the backend
+// const corsOptions = {
+//   origin: "https://kefita-technology-plc.github.io/",
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   credentials: true,
+// }; 
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
