@@ -19,7 +19,7 @@ exports.postAddBlog = async (req, res) => {
 exports.getBlogList = async (req, res) => {
   try {
     const blogs = await Blog.find();
-    res.render("admin/blogList", { blogs });
+    res.render("admin/BlogList", { blogs });
   } catch (error) {
     console.error(error);
     res.status(500).send("Server Error");
