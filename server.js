@@ -19,7 +19,7 @@ const Blog = require("./models/Blog.js");
 
 // Allow only your frontend to access the backend
 const corsOptions = {
-  origin: "https://hayle-hb.github.io",
+  origin: "https://kefita-technology-plc.github.io/",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 }; 
